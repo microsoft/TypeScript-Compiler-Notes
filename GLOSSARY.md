@@ -1,24 +1,46 @@
 ### Terminology from inside the codebase
 
-- `Parser` - Takes source code and tries to convert it into an in-memory AST representation which you can work
-  with in the compiler. Also: [see Parser](https://basarat.gitbooks.io/typescript/docs/compiler/parser.html)
-- `Scanner` - Used by the parser to convert a string an chops into tokens in a linear fashion, then it's up to a
-  parser to tree-ify them. Also: [see Scanner](https://basarat.gitbooks.io/typescript/docs/compiler/scanner.html)
-- `Binder` - Creates a symbol map and uses the AST to provide the type system
-  [See Binder](https://basarat.gitbooks.io/typescript/docs/compiler/binder.html)
-- `Checker` - Takes the AST, symbols and does the type checking and inference -
-  [See Checker](https://basarat.gitbooks.io/typescript/docs/compiler/checker.html)
-- `Token` - A set of characters with some kind of semantic meaning, a parser generates a set of tokens
-- `AST` - An abstract syntax tree. Basically the in-memory representation of all the identifiers as a tree of
-  tokens.
-- `Node` - An object that lives inside the tree
-- `Location` / `Range`
-- `Freshness` - When a literal type is first created and not expanded by hitting a mutable location, see [Widening
-  and Narrowing in TypeScript][wnn].
-- `Symbol` - An object that tracks all the places a variable or type is declared
-- `Transient Symbol` - A symbol created in the checker, as opposed to in the binder
+* **Core TypeScript Compiler**
+
+ * **Parser:** Starting from a set of sources, and following the productions of the language grammar, to generate an Abstract Syntax Tree (AST). Also: [see Parser](https://basarat.gitbooks.io/typescript/docs/compiler/parser.html),
+
+ * **Binder:** Linking declarations contributing to the same structure using a Symbol (e.g. different declarations of the same interface or module, or a function and a module with the same name). This allows the type system to reason about these named declarations. [See Binder](https://basarat.gitbooks.io/typescript/docs/compiler/binder.html)
+ * **Type resolver/ Checker:** Resolving types of each construct, checking semantic operations and generate diagnostics as appropriate. [See Checker](https://basarat.gitbooks.io/typescript/docs/compiler/checker.html)
+
+ * **Emitter:** Output generated from a set of inputs (.ts and .d.ts) files can be one of: JavaScript (.js), definitions (.d.ts), or source maps (.js.map)
+
+ * **Pre-processor:** The "Compilation Context" refers to all files involved in a "program". The context is created by inspecting all files passed in to the compiler on the command line, in order, and then adding any files they may reference directly or indirectly through `import` statements and `/// <reference path=... />` tags.
+The result of walking the reference graph is an ordered list of source files, that constitute the program.
+When resolving imports, preference is given to ".ts" files over ".d.ts" files to ensure the most up-to-date files are processed.
+The compiler does a node-like process to resolve imports by walking up the directory chain to find a source file with a .ts or .d.ts extension matching the requested import.
+Failed import resolution does not result in an error, as an ambient module could be already declared.
+
+* **Standalone compiler (tsc):** The batch compilation CLI. Mainly handle reading and writing files for different supported engines (e.g. Node.js)
+
+* **Language Service:** The "Language Service" exposes an additional layer around the core compiler pipeline that are best suiting editor-like applications.
+The language service supports the common set of a typical editor operations like statement completions, signature help, code formatting and outlining, colorization, etc... Basic re-factoring like rename, Debugging interface helpers like validating breakpoints as well as TypeScript-specific features like support of incremental compilation (--watch equivalent on the command-line). The language service is designed to efficiently handle scenarios with files changing over time within a long-lived compilation context; in that sense, the language service provides a slightly different perspective about working with programs and source files from that of the other compiler interfaces.
+> Please refer to the [[Using the Language Service API]] page for more details.
+
+* **Standalone Server (tsserver):** The `tsserver` wraps the compiler and services layer, and exposes them through a JSON protocol.
+> Please refer to the  [[Standalone Server (tsserver)]] for more details.
 
 ### Type stuff which can be see outside the compilers
+
+* Node: The basic building block of the Abstract Syntax Tree (AST). In general node represent non-terminals in the language grammar; some terminals are kept in the tree such as identifiers and literals.
+
+* SourceFile: The AST of a given source file. A SourceFile is itself a Node; it provides an additional set of interfaces to access the raw text of the file, references in the file, the list of identifiers in the file, and mapping from a position in the file to a line and character numbers.
+
+* Program: A collection of SourceFiles and a set of compilation options that represent a compilation unit. The program is the main entry point to the type system and code generation. 
+
+* Symbol: A named declaration. Symbols are created as a result of binding. Symbols connect declaration nodes in the tree to other declarations contributing to the same entity. Symbols are the basic building block of the semantic system. 
+
+* `Type`: Types are the other part of the semantic system. Types can be named (e.g. classes and interfaces), or anonymous (e.g. object types). 
+
+* Signature``: There are three types of signatures in the language: call, construct and index signatures.
+
+- `Transient Symbol` - A symbol created in the checker, as opposed to in the binder
+- `Freshness` - When a literal type is first created and not expanded by hitting a mutable location, see [Widening
+  and Narrowing in TypeScript][wnn].
 
 - `Expando` - This is [the term](https://developer.mozilla.org/en-US/docs/Glossary/Expando) used to describe taking a JS object and adding new things to it which expands the type's shape
 

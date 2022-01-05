@@ -12,6 +12,10 @@ If you are completely new to the TypeScript codebase, this YouTube video covers 
 
 From there, you can start in the [First Steps to Contributing to the TypeScript Repo](./first_steps.md) consult the [Glossary](./GLOSSARY.md) or dive directly into the [`./codebase/`](./codebase) or [`./systems/`](./systems) folders.
 
+## Asking Questions
+
+One of the best places to ask questions is in the 'compiler-internals-and-api' channel of the [TypeScript Community Discord](https://discord.gg/typescript).
+
 ## Related TypeScript Info
 
 - Learn how TypeScript works by reading the [mini-TypeScript implementation](https://github.com/sandersn/mini-typescript#mini-typescript)

@@ -15,6 +15,7 @@ From there, you can start in the [First Steps to Contributing to the TypeScript 
 ## Related TypeScript Info
 
 - Learn how TypeScript works by reading the [mini-TypeScript implementation](https://github.com/sandersn/mini-typescript#mini-typescript)
+- [Basarat's guide to the Compiler Internals](https://basarat.gitbook.io/typescript/overview)
 
 ## Compilers in General
 

@@ -80,14 +80,20 @@ doesn't do that.
 
 <!-- prettier-ignore-start -->
 [0]: ./parser.md
-[1]: http://abc.com
+[1]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/scanner.ts#L929
 [1]: <src/compiler/scanner.ts - export function createScanner>
+[2]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/scanner.ts#L2551
 [2]: <src/compiler/scanner.ts - function setText(>
 [3]: GLOSSARY.md#incremental-parsing
+[4]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/scanner.ts#L1609
 [4]: <src/compiler/scanner.ts - function scan(>
+[5]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/scanner.ts#L1681
 [5]: <src/compiler/scanner.ts - case CharacterCodes.exclamation>
 [6]: ./formatter.md
+[7]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/services/classifier.ts#L3
 [7]: <src/services/classifier.ts - function createClassifier>
+[8]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/types.ts#L709
 [8]: <src/compiler/types.ts - type JsxTokenSyntaxKind>
+[9]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/types.ts#L2159
 [9]: <src/compiler/types.ts - export const enum TokenFlags>
 <!-- prettier-ignore-end -->

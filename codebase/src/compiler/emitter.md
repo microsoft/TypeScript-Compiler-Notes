@@ -39,9 +39,14 @@ Emitting a declaration file is a multi-step process. It goes through the above e
 goes through a
 
 <!-- prettier-ignore-start -->
+[0]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/emitter.ts#L1041
 [0]: <src/compiler/emitter.ts - function writeBundle>
+[1]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/emitter.ts#L852
 [1]: <src/compiler/emitter.ts - function createPrinter>
+[2]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/emitter.ts#L1129
 [2]: <src/compiler/emitter.ts - function print(>
+[3]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/emitter.ts#L844
 [3]: <src/compiler/emitter.ts - const enum PipelinePhase>
+[3]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/emitter.ts#L1270
 [3]: <src/compiler/emitter.ts - function pipelineEmitWithHint(>
 <!-- prettier-ignore-end -->

@@ -176,30 +176,53 @@ TODO: what are substituted types?
   [`createFileDiagnostic`][10] which should get called for all diagnostic errors.
 
 <!-- prettier-ignore-start -->
+[0]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/program.ts#L1926
 [0]: <src/compiler/program.ts - function getDiagnosticsProducingTypeChecker>
+[1]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L40626
 [1]: <src/compiler/checker.ts - function getDiagnosticsWorker> 
+[2]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L40546
 [2]: <src/compiler/checker.ts - function checkSourceFileWorker> 
+[3]: https://github.com/microsoft/TypeScript/blob/db9e0079//src/compiler/types.ts#L5091
 [3]: </src/compiler/types.ts -  export interface NodeLinks> 
 [4]: GLOSSARY.md#statements 
 [ast]: GLOSSARY.md#statements 
+[5]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L40194
 [5]: <src/compiler/checker.ts - function checkSourceElementWorker>
+[6]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L38138
 [6]: <src/compiler/checker.ts - function checkReturnStatement>
+[7]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts
 [7]: <src/compiler/checker.ts - export function getContainingFunction>
+[8]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/utilities.ts
 [8]: <src/compiler/utilities.ts - export function isFunctionLikeKind>
+[9]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L43738
 [9]: <src/compiler/checker.ts - function grammarErrorOnFirstToken>
+[10]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/utilities.ts#L5960
 [10]: <src/compiler/utilities.ts - export function createFileDiagnostic(file: SourceFile, start: number, length: number, message: DiagnosticMessage): DiagnosticWithLocation>
+[11]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L37216
 [11]: <src/compiler/checker.ts - function checkTruthinessExpression>
+[12]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L17221
 [12]: <src/compiler/checker.ts - function checkExpression>
+[13]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L37076
 [13]: <src/compiler/checker.ts - function checkIfStatement>
+[14]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L33081
 [14]: <src/compiler/checker.ts - function checkBinaryLikeExpression>
+[15]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L17842
 [15]: <src/compiler/checker.ts - function isTypeRelatedTo>
+[16]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L17805
 [16]: <src/compiler/checker.ts - function isSimpleTypeRelatedTo>
+[17]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L17063
 [17]: <src/compiler/checker.ts - function checkTypeRelatedTo>
+[17]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L18240
 [17]: <src/compiler/checker.ts - function isRelatedTo>
+[19]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/types.ts#L5120
 [19]: <src/compiler/types.ts - export const enum TypeFlags>
 [20]: GLOSSARY.md#structural-type-system 
+[21]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L18479
 [21]: <src/compiler/checker.ts - function isIdenticalTo>
+[22]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L18758
 [22]: <src/compiler/checker.ts - function recursiveTypeRelatedTo>
+[22]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L18589
 [22]: <src/compiler/checker.ts - function eachTypeRelatedToSomeType>
+[23]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L18872
 [23]: <src/compiler/checker.ts - function structuredTypeRelatedTo>
 <!-- prettier-ignore-end -->

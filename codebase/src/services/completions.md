@@ -105,6 +105,8 @@ different uses:
 ####
 
 <!-- prettier-ignore-start -->
+[1]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/services/completions.ts#L1525
 [1]: <src/services/completions.ts - interface CompletionData {>
+[2]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/services/completions.ts#L1618
 [2]: <src/services/completions.ts - function getCompletionData(>
 <!-- prettier-ignore-end -->

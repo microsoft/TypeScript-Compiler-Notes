@@ -1,4 +1,5 @@
-# Type Inference
+
+[0]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L21772# Type Inference
 
 TypeScript has a number of related techniques which together are
 called type inference: places where a type is discovered from

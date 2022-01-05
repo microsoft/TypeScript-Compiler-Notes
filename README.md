@@ -2,6 +2,8 @@
 
 This repo is a corpus of notes from many engineers over time on different systems inside the TypeScript codebase. It is not meant as a "one true" source of authoritative documentation for the TypeScript compiler API, but as a way to ease contributions to the [`microsoft/TypeScript`](https://github.com/microsoft/TypeScript) repo.
 
+If you're already familiar with the TypeScript codebase and want to help out, we're open to external folks sending PRs improving or adding areas!
+
 ## Get Started
 
 If you are completely new to the TypeScript codebase, this YouTube video covers all of the major systems involved in converting files to JavaScript, and type-checking types which will provide a high level guide to what you may be interested in focusing on: 

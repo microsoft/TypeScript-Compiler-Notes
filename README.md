@@ -12,10 +12,34 @@ If you are completely new to the TypeScript codebase, this YouTube video covers 
 
 From there, you can start in the [First Steps to Contributing to the TypeScript Repo](./first_steps.md) consult the [Glossary](./GLOSSARY.md) or dive directly into the [`./codebase/`](./codebase) or [`./systems/`](./systems) folders.
 
-## Compilers in General
+## Related TypeScript Info
 
 - Learn how TypeScript works by reading the [mini-TypeScript implementation](https://github.com/sandersn/mini-typescript#mini-typescript)
+
+## Compilers in General
+
 - Recommended link for learning how compilers work: https://c9x.me/compile/bib/
+
+## Interesting PRs
+
+If you learn better by seeing how big features are added to TypeScript, here are a few big well-scoped Pull Requests:
+
+- Unions - [microsoft/TypeScript#824](https://github.com/microsoft/TypeScript/pull/824)
+- Type Aliases - [microsoft/TypeScript#957](https://github.com/microsoft/TypeScript/pull/957)
+- Async Functions - [microsoft/TypeScript#3078](https://github.com/microsoft/TypeScript/pull/3078)
+- TSX - [microsoft/TypeScript#3564](https://github.com/microsoft/TypeScript/pull/3564)
+- Intersection Types - [microsoft/TypeScript#3622](https://github.com/microsoft/TypeScript/pull/3622)
+- String Literal Types - [microsoft/TypeScript#5185](https://github.com/microsoft/TypeScript/pull/5185)
+- JS in TS - [microsoft/TypeScript#5266](https://github.com/microsoft/TypeScript/pull/5266)
+- Using JSDoc to extract types - [microsoft/TypeScript#6024](https://github.com/microsoft/TypeScript/pull/6024)
+- Nullable types - [microsoft/TypeScript#7140](https://github.com/microsoft/TypeScript/pull/7140)
+- Control Flow Analysis - [microsoft/TypeScript#8010](https://github.com/microsoft/TypeScript/pull/8010)
+- Mapped Types - [microsoft/TypeScript#12114](https://github.com/microsoft/TypeScript/pull/12114)
+- Rest Types - [microsoft/TypeScript#13470](https://github.com/microsoft/TypeScript/pull/13470)
+- Strict Functions - [microsoft/TypeScript#18654](https://github.com/microsoft/TypeScript/pull/18654)
+- Unknown - [microsoft/TypeScript#24439](https://github.com/microsoft/TypeScript/pull/24439)
+- Optional Chaining - [microsoft/TypeScript#33294](https://github.com/microsoft/TypeScript/pull/33294)
+- Node ESM Support - [microsoft/TypeScript#45884](https://github.com/microsoft/TypeScript/pull/45884)
 
 # Contributing
 

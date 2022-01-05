@@ -214,9 +214,13 @@ the codebase for the key in that file. E.g:
 
 ### Embrace the debugger
 
+You'll probably spend a good amount of time in the debugger, if this is completely new to you. [Here is a video from](https://www.youtube.com/watch?v=ChQ_sYjU8tU)
+[@alloy](https://github.com/alloy) covering the usage of the debugger inside VS Code, what the buttons do and how it all works.
+
 To test it out the debugger, open up `src/compiler/checker.ts` find
 `function checkSourceFileWorker(node: SourceFile) {` and add a `debugger` statement on the first line in the
 function.
+
 
 ```diff
 function checkSourceFileWorker(node: SourceFile) {

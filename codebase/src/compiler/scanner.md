@@ -80,8 +80,8 @@ doesn't do that.
 
 <!-- prettier-ignore-start -->
 [0]: ./parser.md
-[1]: <src/compiler/scanner.ts - export function createScanner>
 [1]: http://abc.com
+[1]: <src/compiler/scanner.ts - export function createScanner>
 [2]: <src/compiler/scanner.ts - function setText(>
 [3]: GLOSSARY.md#incremental-parsing
 [4]: <src/compiler/scanner.ts - function scan(>

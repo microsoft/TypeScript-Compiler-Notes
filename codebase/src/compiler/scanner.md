@@ -47,11 +47,76 @@ At a high level, the scanner works by a having another object call [`scanner.sca
   - `getTokenValue` - some syntax contains a value which can be represented as a string, a good example is
     literally a string. The `"` or `'` are not included in the value.
 
+
+## Full Start/Token Start
+
+Tokens themselves have what we call a "full start" and a "token start". The "token start" is the more natural version, which is the position in the file where the text of a token begins. The "full start" is the point at which the scanner began scanning since the last significant token. When concerned with trivia, we are often more concerned with the full start.
+
+Function | Description
+---------|------------
+`ts.Node.getStart` | Gets the position in text where the first token of a node started.
+`ts.Node.getFullStart` | Gets the position of the "full start" of the first token owned by the node.
+
+
 ## Trivia
 
 When creating a scanner you get to choose whether whitespace should be returned in the stream of tokens. This is
 nearly always off, but it is used inside the [formatter][6] and for syntax highlighting via the TSServer via a
 [classifier][7].
+
+Syntax trivia represent the parts of the source text that are largely insignificant for normal understanding of the code, such as whitespace, comments, and even conflict markers.
+
+Because trivia are not part of the normal language syntax (barring ECMAScript ASI rules) and can appear anywhere between any two tokens, they are not included in the syntax tree. Yet, because they are important when implementing a feature like refactoring and to maintain full fidelity with the source text, they are still accessible through our APIs on demand.
+
+Because the `EndOfFileToken` can have nothing following it (neither token nor trivia), all trivia naturally precedes some non-trivia token, and resides between that token's "full start" and the "token start"
+
+It is a convenient notion to state that a comment "belongs" to a `Node` in a more natural manner though. For instance, it might be visually clear that the `genie` function declaration owns the last two comments in the following example:
+
+```TypeScript
+var x = 10; // This is x.
+
+/**
+ * Postcondition: Grants all three wishes.
+ */
+function genie([wish1, wish2, wish3]: [Wish, Wish, Wish]) {
+    while (true) {
+    }
+} // End function
+```
+
+This is despite the fact that the function declaration's full start occurs directly after `var x = 10;`.
+
+We follow [Roslyn's notion of trivia ownership](https://github.com/dotnet/roslyn/wiki/Roslyn%20Overview#syntax-trivia) for comment ownership. In general, a token owns any trivia after it on the same line up to the next token. Any comment after that line is associated with the following token. The first token in the source file gets all the initial trivia, and the last sequence of trivia in the file is tacked onto the end-of-file token, which otherwise has zero width.
+
+For most basic uses, comments are the "interesting" trivia. The comments that belong to a Node which can be fetched through the following functions:
+
+Function | Description
+---------|------------
+`ts.getLeadingCommentRanges` | Given the source text and position within that text, returns ranges of comments between the first line break following the given position and the token itself (probably most useful with `ts.Node.getFullStart`).
+`ts.getTrailingCommentRanges` | Given the source text and position within that text, returns ranges of comments until the first line break following the given position (probably most useful with `ts.Node.getEnd`).
+
+As an example, imagine this portion of a source file:
+
+```TypeScript
+debugger;/*hello*/     
+    //bye
+  /*hi*/    function
+```
+
+The full start for the `function` keyword begins at the `/*hello*/` comment, but `getLeadingCommentRanges` will only return the last 2 comments:
+
+```
+d e b u g g e r ; / * h e l l o * / _ _ _ _ _ [CR] [NL] _ _ _ _ / / b y e [CR] [NL] _ _ / * h i * / _ _ _ _ f u n c t i o n 
+                  ↑                                     ↑       ↑                       ↑                   ↑
+                  full start                       look for     first comment           second comment      token start
+                                              leading comments 
+                                               starting here
+```
+
+Appropriately, calling `getTrailingCommentRanges` on the end of the debugger statement will extract the `/*hello*/` comment.
+
+In the event that you are concerned with richer information of the token stream, `createScanner` also has a `skipTrivia` flag which you can set to `false`, and use `setText`/`setTextPos` to scan at different points in a file.
+
 
 ## JSX
 

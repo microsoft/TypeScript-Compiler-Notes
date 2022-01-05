@@ -1,58 +1,58 @@
 ### Terminology from inside the codebase
 
-* **Core TypeScript Compiler**
+- **Core TypeScript Compiler**
 
- * **Parser:** Starting from a set of sources, and following the productions of the language grammar, to generate an Abstract Syntax Tree (AST). Also: [see Parser](https://basarat.gitbooks.io/typescript/docs/compiler/parser.html),
+- **Parser:** Starting from a set of sources, and following the productions of the language grammar, to generate an Abstract Syntax Tree (AST). Also: [see Parser](https://basarat.gitbooks.io/typescript/docs/compiler/parser.html),
 
- * **Binder:** Linking declarations contributing to the same structure using a Symbol (e.g. different declarations of the same interface or module, or a function and a module with the same name). This allows the type system to reason about these named declarations. [See Binder](https://basarat.gitbooks.io/typescript/docs/compiler/binder.html)
- * **Type resolver/ Checker:** Resolving types of each construct, checking semantic operations and generate diagnostics as appropriate. [See Checker](https://basarat.gitbooks.io/typescript/docs/compiler/checker.html)
+- **Binder:** Linking declarations contributing to the same structure using a Symbol (e.g. different declarations of the same interface or module, or a function and a module with the same name). This allows the type system to reason about these named declarations. [See Binder](https://basarat.gitbooks.io/typescript/docs/compiler/binder.html)
+- **Type resolver/ Checker:** Resolving types of each construct, checking semantic operations and generate diagnostics as appropriate. [See Checker](https://basarat.gitbooks.io/typescript/docs/compiler/checker.html)
 
- * **Emitter:** Output generated from a set of inputs (.ts and .d.ts) files can be one of: JavaScript (.js), definitions (.d.ts), or source maps (.js.map)
+- **Emitter:** Output generated from a set of inputs (.ts and .d.ts) files can be one of: JavaScript (.js), definitions (.d.ts), or source maps (.js.map)
 
- * **Pre-processor:** The "Compilation Context" refers to all files involved in a "program". The context is created by inspecting all files passed in to the compiler on the command line, in order, and then adding any files they may reference directly or indirectly through `import` statements and `/// <reference path=... />` tags.
-The result of walking the reference graph is an ordered list of source files, that constitute the program.
-When resolving imports, preference is given to ".ts" files over ".d.ts" files to ensure the most up-to-date files are processed.
-The compiler does a node-like process to resolve imports by walking up the directory chain to find a source file with a .ts or .d.ts extension matching the requested import.
-Failed import resolution does not result in an error, as an ambient module could be already declared.
+- **Pre-processor:** The "Compilation Context" refers to all files involved in a "program". The context is created by inspecting all files passed in to the compiler on the command line, in order, and then adding any files they may reference directly or indirectly through `import` statements and `/// <reference path=... />` tags.
+  The result of walking the reference graph is an ordered list of source files, that constitute the program.
+  When resolving imports, preference is given to ".ts" files over ".d.ts" files to ensure the most up-to-date files are processed.
+  The compiler does a node-like process to resolve imports by walking up the directory chain to find a source file with a .ts or .d.ts extension matching the requested import.
+  Failed import resolution does not result in an error, as an ambient module could be already declared.
 
-* **Standalone compiler (tsc):** The batch compilation CLI. Mainly handle reading and writing files for different supported engines (e.g. Node.js)
+- **Standalone compiler (tsc):** The batch compilation CLI. Mainly handle reading and writing files for different supported engines (e.g. Node.js)
 
-* **Language Service:** The "Language Service" exposes an additional layer around the core compiler pipeline that are best suiting editor-like applications.
-The language service supports the common set of a typical editor operations like statement completions, signature help, code formatting and outlining, colorization, etc... Basic re-factoring like rename, Debugging interface helpers like validating breakpoints as well as TypeScript-specific features like support of incremental compilation (--watch equivalent on the command-line). The language service is designed to efficiently handle scenarios with files changing over time within a long-lived compilation context; in that sense, the language service provides a slightly different perspective about working with programs and source files from that of the other compiler interfaces.
-> Please refer to the [[Using the Language Service API]] page for more details.
+- **Language Service:** The "Language Service" exposes an additional layer around the core compiler pipeline that are best suiting editor-like applications.
+  The language service supports the common set of a typical editor operations like statement completions, signature help, code formatting and outlining, colorization, etc... Basic re-factoring like rename, Debugging interface helpers like validating breakpoints as well as TypeScript-specific features like support of incremental compilation (--watch equivalent on the command-line). The language service is designed to efficiently handle scenarios with files changing over time within a long-lived compilation context; in that sense, the language service provides a slightly different perspective about working with programs and source files from that of the other compiler interfaces.
 
-* **Standalone Server (tsserver):** The `tsserver` wraps the compiler and services layer, and exposes them through a JSON protocol.
-> Please refer to the  [[Standalone Server (tsserver)]] for more details.
+  > Please refer to the [[Using the Language Service API]] page for more details.
+
+- **Standalone Server (tsserver):** The `tsserver` wraps the compiler and services layer, and exposes them through a JSON protocol.
+  > Please refer to the [[Standalone Server (tsserver)]] for more details.
 
 ### Type stuff which can be see outside the compilers
 
-* Node: The basic building block of the Abstract Syntax Tree (AST). In general node represent non-terminals in the language grammar; some terminals are kept in the tree such as identifiers and literals.
+- Node: The basic building block of the Abstract Syntax Tree (AST). In general node represent non-terminals in the language grammar; some terminals are kept in the tree such as identifiers and literals.
 
-* SourceFile: The AST of a given source file. A SourceFile is itself a Node; it provides an additional set of interfaces to access the raw text of the file, references in the file, the list of identifiers in the file, and mapping from a position in the file to a line and character numbers.
+- SourceFile: The AST of a given source file. A SourceFile is itself a Node; it provides an additional set of interfaces to access the raw text of the file, references in the file, the list of identifiers in the file, and mapping from a position in the file to a line and character numbers.
 
-* Program: A collection of SourceFiles and a set of compilation options that represent a compilation unit. The program is the main entry point to the type system and code generation. 
+- Program: A collection of SourceFiles and a set of compilation options that represent a compilation unit. The program is the main entry point to the type system and code generation.
 
-* Symbol: A named declaration. Symbols are created as a result of binding. Symbols connect declaration nodes in the tree to other declarations contributing to the same entity. Symbols are the basic building block of the semantic system. 
+- Symbol: A named declaration. Symbols are created as a result of binding. Symbols connect declaration nodes in the tree to other declarations contributing to the same entity. Symbols are the basic building block of the semantic system.
 
-* `Type`: Types are the other part of the semantic system. Types can be named (e.g. classes and interfaces), or anonymous (e.g. object types). 
+- `Type`: Types are the other part of the semantic system. Types can be named (e.g. classes and interfaces), or anonymous (e.g. object types).
 
-* Signature``: There are three types of signatures in the language: call, construct and index signatures.
+- Signature``: There are three types of signatures in the language: call, construct and index signatures.
 
-- `Transient Symbol` - A symbol created in the checker, as opposed to in the binder
-- `Freshness` - When a literal type is first created and not expanded by hitting a mutable location, see [Widening
+* `Transient Symbol` - A symbol created in the checker, as opposed to in the binder
+* `Freshness` - When a literal type is first created and not expanded by hitting a mutable location, see [Widening
   and Narrowing in TypeScript][wnn].
 
-- `Expando` - This is [the term](https://developer.mozilla.org/en-US/docs/Glossary/Expando) used to describe taking a JS object and adding new things to it which expands the type's shape
+* `Expando` - This is [the term](https://developer.mozilla.org/en-US/docs/Glossary/Expando) used to describe taking a JS object and adding new things to it which expands the type's shape
 
   ```js
   function doSomething() {}
-  doSomething.doSomethingElse = () => {}
+  doSomething.doSomethingElse = () => {};
   ```
-  
+
   In TS, this is only allowed for adding properties to functions. In JS, this is a normal pattern in old school code for all kinds of objects. TypeScript will augment the types for `doSomething` to add `doSomethingElse` in the type system in both.
 
-
-- `Structural Type System` - A school of types system where the way types are compared is via the structure of
+* `Structural Type System` - A school of types system where the way types are compared is via the structure of
   their properties.
 
   For example:
@@ -72,7 +72,20 @@ The language service supports the common set of a typical editor operations like
   These two are the exact same inside TypeScript. The basic rule for TypeScript’s structural type system is that
   `x` is compatible with `y` if `y` has at least the same members as `x`.
 
-* `Literal` - A literal type is a type that only has a single value, e.g. `true`, `1`, `"abc"`, `undefined`.
+* `Laziness` To support language services that respond interactively, the compiler is lazy: it does not calculate any information until it is required.
+  This allows it to respond quickly when the language service requests the type of a variable or its members.
+  Unfortunately, laziness also makes the compiler code more complicated.
+
+  As an overview, after parsing is complete, the binder does nothing but identify symbols.
+  The checker then waits until a particular symbol is requested to calculate type information, etc.
+
+* `Immutability` - Each phase of the compiler (parser, binder, etc -- see below for details) treats data structures from the previous phases as immutable.
+  In addition, data structures created within each phase are not usually modified after their creation.
+  This requires a look-aside table in some cases.
+  For example, because the binder only looks at one file at a time, the checker needs a merged-symbols table to track merged declarations.
+  It checks whether a symbol has an entry in the merged-symbols table each time before it uses a symbol.
+
+- `Literal` - A literal type is a type that only has a single value, e.g. `true`, `1`, `"abc"`, `undefined`.
 
   For immutable objects, TypeScript creates a literal type which is the value. For mutable objects TypeScript
   uses the general type that the literal matches. See [#10676](https://github.com/Microsoft/TypeScript/pull/10676)
@@ -96,13 +109,14 @@ The language service supports the common set of a typical editor operations like
 
   Literal types are sometimes called unit types, because they have only one ("unit") value.
 
-- `Control Flow Analysis` - using the natural branching and execution path of code to change the types at
+* `Control Flow Analysis` - using the natural branching and execution path of code to change the types at
   different locations in your source code by static analysis.
 
   ```ts
-  type Bird = { color: string, flaps: true };
-  type Tiger = { color: string, stripes: true };
-  declare animal: Bird | Tiger
+  type Bird = { color: string; flaps: true };
+  type Tiger = { color: string; stripes: true };
+  declare;
+  animal: Bird | Tiger;
 
   if ("stripes" in animal) {
     // Inside here animal is only a tiger, because TS could figure out that
@@ -110,7 +124,7 @@ The language service supports the common set of a typical editor operations like
   }
   ```
 
-- `Generics` - A way to have variables inside a type system.
+* `Generics` - A way to have variables inside a type system.
 
   ```ts
   function first(array: any[]): any {
@@ -147,7 +161,7 @@ The language service supports the common set of a typical editor operations like
   first<string>(["a", "b", "c"]);
   ```
 
-* `Outer type parameter` - A type parameter declared in a parent generic construct:
+- `Outer type parameter` - A type parameter declared in a parent generic construct:
 
   ```ts
   class Parent<T> {
@@ -158,7 +172,7 @@ The language service supports the common set of a typical editor operations like
   }
   ```
 
-* `Narrowing` - Taking a union of types and reducing it to fewer options.
+- `Narrowing` - Taking a union of types and reducing it to fewer options.
 
   A great case is when using `--strictNullCheck` when using control flow analysis
 
@@ -174,7 +188,7 @@ The language service supports the common set of a typical editor operations like
   }
   ```
 
-- `Expanding` - The opposite of narrowing, taking a type and converting it to have more potential values.
+* `Expanding` - The opposite of narrowing, taking a type and converting it to have more potential values.
 
 ```ts
 const helloWorld = "Hello World"; // Type; "Hello World"
@@ -193,9 +207,13 @@ expanded version of `"Hello World"` which went from one value ever, to any known
 
   ```ts
   // @filename: one.ts
-  interface I { a }
+  interface I {
+    a;
+  }
   // @filename: two.ts
-  interface I { b }
+  interface I {
+    b;
+  }
   ```
 
   The binder creates two symbols for I, one in each file. Then the checker creates a merged symbol that has both declarations.
@@ -203,7 +221,7 @@ expanded version of `"Hello World"` which went from one value ever, to any known
   2. Synthetic properties
 
   ```ts
-  type Nats = Record<'one' | 'two', number>
+  type Nats = Record<"one" | "two", number>;
   ```
 
   The binder doesn't create any symbols for `one` or `two`, because those properties don't exist until the Record mapped type creates them.
@@ -212,13 +230,13 @@ expanded version of `"Hello World"` which went from one value ever, to any known
 
   ```js
   var f = function g() {
-    g.expando1 = {}
-
-  }
-  f.expando2 = {}
+    g.expando1 = {};
+  };
+  f.expando2 = {};
   ```
 
   People can put expando properties on a function expression inside or outside the function, using different names.
+
 - `Partial Type` -
 - `Synthetic` - a property that doesn't have a declaration in source.
 - `Union Types`
@@ -273,7 +291,11 @@ TypeScript lets you use these as convenient containers with known types.
 // Any item has to say what it is, and whether it is done
 type TodoListItem = [string, boolean];
 
-const chores: TodoListItem[] = [["read a book", true], ["done dishes", true], ["take the dog out", false]];
+const chores: TodoListItem[] = [
+  ["read a book", true],
+  ["done dishes", true],
+  ["take the dog out", false],
+];
 ```
 
 Yes, you could use an object for each item in this example, but tuples are there when it fits your needs.

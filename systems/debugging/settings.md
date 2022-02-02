@@ -1,4 +1,4 @@
-Here are some settings that sandersn uses
+Here are some launch.json configurations that sandersn uses
 
 ## Hard-coded file:
 

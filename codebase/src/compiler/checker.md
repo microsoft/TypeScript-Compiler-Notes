@@ -17,6 +17,8 @@ Switching to different files means probably making [god objects][god], and the c
 We want to avoid additional calls for ambient context. There are architectural patterns for this, but it's better
 to assume good faith that they've been explored already (8 years down the line now.)
 
+[god]: thttps://en.wikipedia.org/wiki/God_object
+
 Anyway, better to get started somewhere. I [asked online](https://twitter.com/orta/status/1148335807780007939)
 about how people would try to study a file like this and I think one of the best paths is by following a
 particular story as a file gets checked.

@@ -227,4 +227,6 @@ TODO: what are substituted types?
 [22]: <src/compiler/checker.ts - function eachTypeRelatedToSomeType>
 [23]: https://github.com/microsoft/TypeScript/blob/db9e0079/src/compiler/checker.ts#L18872
 [23]: <src/compiler/checker.ts - function structuredTypeRelatedTo>
+[24]: https://github.com/microsoft/TypeScript/blob/eb430f27/src/compiler/types.ts#L6097
+[24]: <src/compiler/types.ts - export const enum Ternary>
 <!-- prettier-ignore-end -->

@@ -2,10 +2,10 @@
 
 - **Core TypeScript Compiler**
 
-- **Parser:** Starting from a set of sources, and following the productions of the language grammar, to generate an Abstract Syntax Tree (AST). Also: [see Parser](https://basarat.gitbooks.io/typescript/docs/compiler/parser.html),
+- **Parser:** Starting from a set of sources, and following the productions of the language grammar, to generate an Abstract Syntax Tree (AST). [See Parser](https://basarat.gitbook.io/typescript/overview/parser)
 
-- **Binder:** Linking declarations contributing to the same structure using a Symbol (e.g. different declarations of the same interface or module, or a function and a module with the same name). This allows the type system to reason about these named declarations. [See Binder](https://basarat.gitbooks.io/typescript/docs/compiler/binder.html)
-- **Type resolver/ Checker:** Resolving types of each construct, checking semantic operations and generate diagnostics as appropriate. [See Checker](https://basarat.gitbooks.io/typescript/docs/compiler/checker.html)
+- **Binder:** Linking declarations contributing to the same structure using a Symbol (e.g. different declarations of the same interface or module, or a function and a module with the same name). This allows the type system to reason about these named declarations. [See Binder](https://basarat.gitbook.io/typescript/overview/binder)
+- **Type resolver/ Checker:** Resolving types of each construct, checking semantic operations and generate diagnostics as appropriate. [See Checker](https://basarat.gitbook.io/typescript/overview/checker)
 
 - **Emitter:** Output generated from a set of inputs (.ts and .d.ts) files can be one of: JavaScript (.js), definitions (.d.ts), or source maps (.js.map)
 

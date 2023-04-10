@@ -9,7 +9,7 @@ There are 5 different type relations we have in the checker (in order of strictn
 
 We use those relations for different things in the checker, and in general we have all those different relations because sometimes we wanna be more strict, and sometimes we don't.
 
-We use **assignability** to check if an argument can be passed to a function, or if an expression can be assigned to a variable:
+We use **assignability** for most things in the checker. For instance, we use it to check if an argument can be passed to a function, or if an expression can be assigned to a variable:
 
 ```ts
 declare let x: number;
@@ -17,7 +17,9 @@ declare let y: string;
 y = x; // Error: Type 'number' is not assignable to type 'string'.
 ```
 
-When computing the type of an array literal from the types of its elements, we use a different relation: **strict subtyping**. To compute the type of an array literal, we need to compare the type of each array element to one another, removing the types that are a subtype of another element type. To do this comparison between array element types, we use the strict subtyping relation, as seen in the following example:
+Sometimes when we have an union type, we need to simplify it by a process called subtype reduction, i.e. remove components from the union which are subsumed by other components in the union. Subtype reduction is one of the situations when we use the **strict subtyping** relation.
+
+For example, when  we're computing the type of an array literal from the types of its elements, we need to compare the type of each array element to one another, removing the types that are a subtype of another element type, i.e. subtype reduction. So to do this comparison between array element types, we use the strict subtyping relation, as seen in the following example:
 
 ```ts
 interface SomeObj {
@@ -55,7 +57,7 @@ myFunc(a); // After overload resolution, we infer `any`.
 
 When doing overload resolution, we try to match the argument type (`any`) to the parameter type of each overload signature using the subtype relation. Because `any` is not a subtype of `string` or `number`, we pick the last signature. If we used the assignability relation, we'd go match an `any` argument with the parameter type `string` on the first `myFunc` signature, and it would match, because `any` is assignable to `string`.
 
-> **_Note:_** something that can be confusing is how `any` has a different behavior depending on the relation being used to compare it, and how it differs from `unknown`. Basically, `any` is special because it is assignable to every type, but `any` is not a subtype of every type. And every type is assignable to `any`, and every type is a subtype of `any`. So `any` has this special behavior during assignability where it is assignable to **any**thing.
+> **Note:** something that can be confusing is how `any` has a different behavior depending on the relation being used to compare it, and how it differs from `unknown`. Basically, `any` is special because it is assignable to every type, but `any` is not a subtype of every type. And every type is assignable to `any`, and every type is a subtype of `any`. So `any` has this special behavior during assignability where it is assignable to **any**thing.
 `unknown`, like `any`, is also a supertype of every other type. However, `unknown` doesn't have `any`'s special assignability behavior: everything is assignable to `unknown`, but `unknown` is not assignable to everything.
 
 Another relation we have is **comparability**. We use comparability to check if two types possibly overlap and values of those types can possibly be compared to one another. For example:
@@ -83,7 +85,8 @@ As for the **identity** relation, it means to be used as its name implies: to ch
 Another usage of identity is in inference. When inferring from one type into another, we get rid of the parts of both types that are identical. For example, when inferring from one union to another union, e.g. from `boolean | string | number` to `T | string | number`, we get rid of the identical types on both sides (`string` and `number`) to end up inferring from `boolean` into `T`.
 Yet another example is when checking assignability of two instantiations of the same invariant generic type: two instantiations are still related if their type arguments is identical.
 
-> **_Implementation note:_** Most of the times, identity is used for object types, and we try to make it quick to check that by interning that information.
+> **Implementation note:** We try to make checking the above relations fast in the checker's implementation, and we use different strategies to achieve that.
+As an example, consider the identity relation. Most of the time it is used for object types, and we try to make it quick to check that by interning that information.
 For example, instantiations of the same type with the same arguments produce the same type, so it's fast to check that the instantiated types are identical.
 However, we don't intern all identical object types: anonymous object literal types are not interned. So they have distinct types, but they are identical, so we end up having to do a more expensive check to see that they're identical.
 

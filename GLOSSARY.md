@@ -37,9 +37,11 @@
 
 - `Type`: Types are the other part of the semantic system. Types can be named (e.g. classes and interfaces), or anonymous (e.g. object types).
 
-- Signature``: There are three types of signatures in the language: call, construct and index signatures.
+- `Signature`: There are three types of signatures in the language: call, construct and index signatures.
 
-* `Transient Symbol` - A symbol created in the checker, as opposed to in the binder
+* `Transient Symbol` - A symbol created in the checker, as opposed to in the binder. They intended for use in the checker. They're called transient because the binder runs once on all files and then only re-runs when a file is edited, but the checker runs only lazily, and on edits.
+Usually used for symbols that don't directly map to a source location, but are based on symbols which do map to a source location. Something like symbols of a mapped type or merged symbols of an interface or intersection.
+
 * `Freshness` - When a literal type is first created and not expanded by hitting a mutable location, see [Widening
   and Narrowing in TypeScript][wnn].
 
